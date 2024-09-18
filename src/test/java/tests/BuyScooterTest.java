@@ -9,7 +9,7 @@ import runner.BaseTest;
 public class BuyScooterTest extends BaseTest {
 
     @Test
-    public void testOrderScooter() throws InterruptedException {
+    public void testOrderScooter() {
         SecondOrderFormPage confirmationList = new HomePage(getDriver())
                 .clickAcceptCookieButton()
                 .clickOrderBottomButton()

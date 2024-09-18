@@ -11,7 +11,9 @@ public abstract class BaseTest {
     @Before
     public void beforeMethod() {
         driver = DriverManager.createDriver(Config.FIREFOX);
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        if (driver != null) {
+            driver.get("https://qa-scooter.praktikum-services.ru/");
+        }
     }
 
     @After
