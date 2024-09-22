@@ -5,7 +5,7 @@ import model.SecondOrderFormPage;
 import org.junit.Assert;
 import org.junit.Test;
 import runner.BaseTest;
-import utils.MetroStations;
+import utils.MetroStation;
 
 public class BuyScooterTest extends BaseTest {
 
@@ -17,7 +17,7 @@ public class BuyScooterTest extends BaseTest {
                 .setFirstNameField("Иван")
                 .setLastNameField("Иванов")
                 .setOrderAddressField("Москва")
-                .setMetroStationDropDown(MetroStations.SOKOLNIKI)
+                .setMetroStationDropDown(MetroStation.SOKOLNIKI)
                 .setPhoneNumberField("375441234567")
                 .clickNextButton()
                 .setDateDeliveryField("10")

@@ -1,6 +1,6 @@
 package utils;
 
-public enum MetroStations {
+public enum MetroStation {
 
     ROKOSSOVSKY_BOULEVARD("Бульвар Рокоссовского"),
     CHERKIZOVSKAYA("Черкизовская"),
@@ -10,7 +10,7 @@ public enum MetroStations {
 
     private final String stationName;
 
-    MetroStations(String stationName) {
+    MetroStation(String stationName) {
         this.stationName = stationName;
     }
 
