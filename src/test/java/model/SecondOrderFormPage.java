@@ -2,6 +2,7 @@ package model;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import utils.RentalPeriod;
 
 public class SecondOrderFormPage extends BasePage {
 
@@ -34,9 +35,9 @@ public class SecondOrderFormPage extends BasePage {
         return this;
     }
 
-    public SecondOrderFormPage setRentalPeriodField(String rentalPeriod) {
+    public SecondOrderFormPage setRentalPeriodField(RentalPeriod rentalPeriod) {
         getDriver().findElement(rentalPeriodField).click();
-        getDriver().findElement(By.xpath(String.format("//div[text()='%s']", rentalPeriod))).click();
+        getDriver().findElement(By.xpath(String.format("//div[text()='%s']", rentalPeriod.getRentalPeriod()))).click();
 
         return this;
     }

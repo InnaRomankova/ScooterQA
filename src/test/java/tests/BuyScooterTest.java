@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import runner.BaseTest;
 import utils.MetroStation;
+import utils.RentalPeriod;
 
 public class BuyScooterTest extends BaseTest {
 
@@ -21,7 +22,7 @@ public class BuyScooterTest extends BaseTest {
                 .setPhoneNumberField("375441234567")
                 .clickNextButton()
                 .setDateDeliveryField("10")
-                .setRentalPeriodField("сутки")
+                .setRentalPeriodField(RentalPeriod.FIVE_DAYS)
                 .clickBlackColorScooterCheckbox()
                 .setCommentField("3-й этаж")
                 .clickOrderBottomButton()
