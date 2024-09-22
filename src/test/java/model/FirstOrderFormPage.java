@@ -20,9 +20,6 @@ public class FirstOrderFormPage extends BasePage {
     //Поле "Станция метро"
     private final By metroStationDropDown = By.cssSelector("[placeholder*='метро']");
 
-    //Поле "Станция метро"
-    private final By metroStationFirstOption = By.xpath("//div[@class='select-search__select']/*");
-
     //Поле "Телефон"
     private final By phoneNumberField = By.cssSelector("[placeholder*='Телефон']");
 
