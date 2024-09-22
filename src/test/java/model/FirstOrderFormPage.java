@@ -1,7 +1,10 @@
 package model;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
+import utils.MetroStations;
 
 public class FirstOrderFormPage extends BasePage {
 
@@ -49,9 +52,14 @@ public class FirstOrderFormPage extends BasePage {
         return this;
     }
 
-    public FirstOrderFormPage setMetroStationDropDown() {
+    public FirstOrderFormPage setMetroStationDropDown(MetroStations station) {
         getDriver().findElement(metroStationDropDown).click();
-        getDriver().findElement(metroStationFirstOption).click();
+
+        Actions actions = new Actions(getDriver());
+        actions
+                .sendKeys(station.getStationName())
+                .sendKeys(Keys.ARROW_DOWN, Keys.ENTER)
+                .perform();
 
         return this;
     }
