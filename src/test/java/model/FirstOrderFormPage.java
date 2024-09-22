@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
-import utils.MetroStations;
+import utils.MetroStation;
 
 public class FirstOrderFormPage extends BasePage {
 
@@ -49,7 +49,7 @@ public class FirstOrderFormPage extends BasePage {
         return this;
     }
 
-    public FirstOrderFormPage setMetroStationDropDown(MetroStations station) {
+    public FirstOrderFormPage setMetroStationDropDown(MetroStation station) {
         getDriver().findElement(metroStationDropDown).click();
 
         Actions actions = new Actions(getDriver());
