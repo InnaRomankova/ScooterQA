@@ -28,6 +28,9 @@ public class SecondOrderFormPage extends BasePage {
     //Кнопка "Да" в диалоговом окне подтверждения заказа
     private final By acceptOrderInDialogBoxButton = By.xpath("//button[text()='Да']");
 
+    //Текст подтверждения заказа в диалоговом окне
+    private final By orderConfirmationTextInModalDialog = By.cssSelector("[class^='Order_ModalHeader']");
+
     public SecondOrderFormPage(WebDriver driver) {
         super(driver);
     }
@@ -74,6 +77,6 @@ public class SecondOrderFormPage extends BasePage {
 
     public String getOrderConfirmationText() {
 
-        return getDriver().findElement(By.cssSelector("[class^='Order_ModalHeader']")).getText();
+        return getDriver().findElement(orderConfirmationTextInModalDialog).getText();
     }
 }
