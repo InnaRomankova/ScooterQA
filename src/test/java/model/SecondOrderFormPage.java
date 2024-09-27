@@ -3,6 +3,7 @@ package model;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import utils.RentalPeriod;
+import utils.ScooterColor;
 
 public class SecondOrderFormPage extends BasePage {
 
@@ -13,7 +14,10 @@ public class SecondOrderFormPage extends BasePage {
     private final By rentalPeriodField = By.xpath("//div[contains(text(),'Срок аренды')]");
 
     //Чекбокс "черный жемчуг" в поле "Цвет самоката"
-    private final By blackColorScooterCheckbox = By.xpath("//label[contains(text(),'чёрный жемчуг')]");
+    private final By blackScooterColorCheckbox = By.id("black");
+
+    //Чекбокс "серая безысходность" в поле "Цвет самоката"
+    private final By greyScooterColorCheckbox = By.id("grey");
 
     //Поле "Комментарий для курьера"
     private final By commentField = By.cssSelector("[placeholder^='Комментарий']");
@@ -42,8 +46,10 @@ public class SecondOrderFormPage extends BasePage {
         return this;
     }
 
-    public SecondOrderFormPage clickBlackColorScooterCheckbox() {
-        getDriver().findElement(blackColorScooterCheckbox).click();
+    public SecondOrderFormPage setScooterColorCheckbox(ScooterColor color) {
+        if (color.equals(ScooterColor.BLACK_PEARL)) {
+            getDriver().findElement(blackScooterColorCheckbox).click();
+        } else getDriver().findElement(greyScooterColorCheckbox).click();
 
         return this;
     }
@@ -54,7 +60,7 @@ public class SecondOrderFormPage extends BasePage {
         return this;
     }
 
-    public SecondOrderFormPage clickOrderBottomButton() {
+    public SecondOrderFormPage clickBottomOrderButton() {
         getDriver().findElement(orderBottomButton).click();
 
         return this;

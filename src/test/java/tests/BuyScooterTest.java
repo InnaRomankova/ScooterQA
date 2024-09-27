@@ -9,6 +9,7 @@ import org.junit.runners.Parameterized;
 import runner.BaseTest;
 import utils.MetroStation;
 import utils.RentalPeriod;
+import utils.ScooterColor;
 
 @RunWith(Parameterized.class)
 public class BuyScooterTest extends BaseTest {
@@ -20,10 +21,12 @@ public class BuyScooterTest extends BaseTest {
     private final String phoneNumber;
     private final String deliveryDate;
     private final RentalPeriod rentalPeriod;
+    private final ScooterColor scooterColor;
     private final String comment;
 
     public BuyScooterTest(String firstName, String lastName, String address, MetroStation metroStation,
-                          String phoneNumber, String deliveryDate, RentalPeriod rentalPeriod, String comment) {
+                          String phoneNumber, String deliveryDate, RentalPeriod rentalPeriod, ScooterColor color,
+                          String comment) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -31,22 +34,25 @@ public class BuyScooterTest extends BaseTest {
         this.phoneNumber = phoneNumber;
         this.deliveryDate = deliveryDate;
         this.rentalPeriod = rentalPeriod;
+        this.scooterColor = color;
         this.comment = comment;
     }
 
     @Parameterized.Parameters
     public static Object[][] getOrderData() {
-        return new Object[][] {
-                {"Иван", "Иванов", "г.Москва, ул.Строителей, д.18, кв.6", MetroStation.KRASNOSELSKAYA, "84999011234", "5", RentalPeriod.ONE_DAY, "3-й этаж"},
-                {"Петр", "Петров", "г.Москва, ул.Новокузнецкая, 4-15", MetroStation.PREOBRAZHENSKAYA_SQUARE, "84999015555", "14", RentalPeriod.FIVE_DAYS, "домофон не работает"}
+        return new Object[][]{
+                {"Иван", "Иванов", "г.Москва, ул.Строителей, д.18, кв.6", MetroStation.KRASNOSELSKAYA, "84999011234",
+                        "5", RentalPeriod.ONE_DAY, ScooterColor.BLACK_PEARL, "3-й этаж"},
+                {"Петр", "Петров", "г.Москва, ул.Новокузнецкая, 4-15", MetroStation.PREOBRAZHENSKAYA_SQUARE,
+                        "84999015555", "14", RentalPeriod.FIVE_DAYS, ScooterColor.GREY_HOPELESSNESS, "домофон не работает"}
         };
     }
 
     @Test
-    public void testOrderScooter() {
+    public void testOrderScooterByBottomOrderButton() {
         SecondOrderFormPage confirmationList = new HomePage(getDriver())
                 .clickAcceptCookieButton()
-                .clickOrderBottomButton()
+                .clickBottomOrderButton()
                 .setFirstNameField(firstName)
                 .setLastNameField(lastName)
                 .setOrderAddressField(address)
@@ -55,9 +61,9 @@ public class BuyScooterTest extends BaseTest {
                 .clickNextButton()
                 .setDateDeliveryField(deliveryDate)
                 .setRentalPeriodField(rentalPeriod)
-                .clickBlackColorScooterCheckbox()
+                .setScooterColorCheckbox(scooterColor)
                 .setCommentField(comment)
-                .clickOrderBottomButton()
+                .clickBottomOrderButton()
                 .acceptOrderInDialogBox();
 
         Assert.assertTrue(confirmationList.getOrderConfirmationText().contains("Заказ оформлен"));
