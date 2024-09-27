@@ -21,7 +21,7 @@ public class HomePage extends BasePage {
         return this;
     }
 
-    public FirstOrderFormPage clickOrderBottomButton() {
+    public FirstOrderFormPage clickBottomOrderButton() {
         getDriver().findElement(orderBottomButton).click();
 
         return new FirstOrderFormPage(getDriver());
