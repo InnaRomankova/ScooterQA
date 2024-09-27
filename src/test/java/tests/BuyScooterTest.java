@@ -68,4 +68,25 @@ public class BuyScooterTest extends BaseTest {
 
         Assert.assertTrue(confirmationList.getOrderConfirmationText().contains("Заказ оформлен"));
     }
+
+    @Test
+    public void testOrderScooterByTopOrderButton() {
+        SecondOrderFormPage confirmationList = new HomePage(getDriver())
+                .clickAcceptCookieButton()
+                .clickTopOrderButton()
+                .setFirstNameField(firstName)
+                .setLastNameField(lastName)
+                .setOrderAddressField(address)
+                .setMetroStationDropDown(metroStation)
+                .setPhoneNumberField(phoneNumber)
+                .clickNextButton()
+                .setDateDeliveryField(deliveryDate)
+                .setRentalPeriodField(rentalPeriod)
+                .setScooterColorCheckbox(scooterColor)
+                .setCommentField(comment)
+                .clickBottomOrderButton()
+                .acceptOrderInDialogBox();
+
+        Assert.assertTrue(confirmationList.getOrderConfirmationText().contains("Заказ оформлен"));
+    }
 }

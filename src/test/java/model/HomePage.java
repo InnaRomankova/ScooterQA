@@ -9,7 +9,10 @@ public class HomePage extends BasePage {
     private final By acceptCookieButton = By.cssSelector("div[class^='App_CookieConsent'] button");
 
     //Кнопка "Заказать" внизу страницы
-    private final By orderBottomButton = By.cssSelector("div[class^=Home]>button");
+    private final By bottomOrderButton = By.cssSelector("div[class^=Home]>button");
+
+    //Кнопка "Заказать" вверху страницы
+    private final By topOrderButton = By.xpath("//div[@class='Header_Nav__AGCXC']/button[text()='Заказать']");
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -22,7 +25,13 @@ public class HomePage extends BasePage {
     }
 
     public FirstOrderFormPage clickBottomOrderButton() {
-        getDriver().findElement(orderBottomButton).click();
+        getDriver().findElement(bottomOrderButton).click();
+
+        return new FirstOrderFormPage(getDriver());
+    }
+
+    public FirstOrderFormPage clickTopOrderButton() {
+        getDriver().findElement(topOrderButton).click();
 
         return new FirstOrderFormPage(getDriver());
     }
