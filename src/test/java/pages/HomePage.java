@@ -1,4 +1,4 @@
-package model;
+package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -11,16 +11,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class HomePage extends BasePage {
+public class HomePage extends BaseProjectPage {
 
     //Кнопка, чтобы принять cookie "Да все привыкли"
     private final By acceptCookieButton = By.cssSelector("div[class^='App_CookieConsent'] button");
 
     //Кнопка "Заказать" внизу страницы
     private final By bottomOrderButton = By.cssSelector("div[class^=Home]>button");
-
-    //Кнопка "Заказать" вверху страницы
-    private final By topOrderButton = By.xpath("//div[@class='Header_Nav__AGCXC']/button[text()='Заказать']");
 
     //Блок "Вопросы о важном"
     private final By questionsAboutImportantBlock = By.xpath("//div[contains(text(),'Вопросы о важном')]");
@@ -37,12 +34,6 @@ public class HomePage extends BasePage {
 
     public FirstOrderFormPage clickBottomOrderButton() {
         getDriver().findElement(bottomOrderButton).click();
-
-        return new FirstOrderFormPage(getDriver());
-    }
-
-    public FirstOrderFormPage clickTopOrderButton() {
-        getDriver().findElement(topOrderButton).click();
 
         return new FirstOrderFormPage(getDriver());
     }

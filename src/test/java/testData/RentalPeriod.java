@@ -1,4 +1,4 @@
-package utils;
+package testData;
 
 public enum RentalPeriod {
 

@@ -23,7 +23,7 @@ public abstract class BaseTest {
         }
     }
 
-    protected WebDriver getDriver() {
+    public WebDriver getDriver() {
         return driver;
     }
 }

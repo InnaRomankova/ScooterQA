@@ -1,13 +1,13 @@
 package tests;
 
-import model.BasePage;
-import model.FirstOrderFormPage;
-import model.HomePage;
-import model.OrderStatusPage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import pages.BaseProjectPage;
+import pages.FirstOrderFormPage;
+import pages.HomePage;
+import pages.OrderStatusPage;
 import runner.BaseTest;
 
 @RunWith(Parameterized.class)
@@ -15,7 +15,7 @@ public class NavigationTest extends BaseTest {
 
     private final String urlAddress;
     private final String pageName;
-    private BasePage page;
+    private BaseProjectPage page;
 
     public NavigationTest(String urlAddress, String pageName) {
         this.urlAddress = urlAddress;
