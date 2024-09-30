@@ -1,11 +1,11 @@
-package model;
+package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import utils.RentalPeriod;
-import utils.ScooterColor;
+import testData.RentalPeriod;
+import testData.ScooterColor;
 
-public class SecondOrderFormPage extends BasePage {
+public class SecondOrderFormPage extends BaseProjectPage {
 
     //Поле "Когда привезти самокат"
     private final By dateDeliveryField = By.cssSelector("[placeholder$='Когда привезти самокат']");

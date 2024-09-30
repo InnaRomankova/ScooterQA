@@ -1,12 +1,12 @@
-package model;
+package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
-import utils.MetroStation;
+import testData.MetroStation;
 
-public class FirstOrderFormPage extends BasePage {
+public class FirstOrderFormPage extends BaseProjectPage {
 
     //Поле "Имя"
     private final By firstNameField = By.cssSelector("[placeholder$='Имя']");

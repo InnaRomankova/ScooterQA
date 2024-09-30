@@ -1,14 +1,14 @@
 package tests;
 
-import model.HomePage;
 import org.junit.Assert;
 import org.junit.Test;
+import pages.HomePage;
 import runner.BaseTest;
-import utils.HomePageData;
+import testData.HomePageData;
 
 import java.util.Map;
 
-public class GetInformationTest extends BaseTest {
+public class GettingInformationTest extends BaseTest {
 
     @Test
     public void testGetAnswersToImportantQuestions() {

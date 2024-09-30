@@ -1,18 +1,19 @@
 package tests;
 
-import model.HomePage;
-import model.SecondOrderFormPage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import pages.HomePage;
+import pages.SecondOrderFormPage;
 import runner.BaseTest;
-import utils.MetroStation;
-import utils.RentalPeriod;
-import utils.ScooterColor;
+import testData.MetroStation;
+import testData.RentalPeriod;
+import testData.ScooterColor;
+import utils.TestUtils;
 
 @RunWith(Parameterized.class)
-public class BuyScooterTest extends BaseTest {
+public class BuyingScooterTest extends BaseTest {
 
     private final String firstName;
     private final String lastName;
@@ -24,9 +25,9 @@ public class BuyScooterTest extends BaseTest {
     private final ScooterColor scooterColor;
     private final String comment;
 
-    public BuyScooterTest(String firstName, String lastName, String address, MetroStation metroStation,
-                          String phoneNumber, String deliveryDate, RentalPeriod rentalPeriod, ScooterColor color,
-                          String comment) {
+    public BuyingScooterTest(String firstName, String lastName, String address, MetroStation metroStation,
+                             String phoneNumber, String deliveryDate, RentalPeriod rentalPeriod, ScooterColor color,
+                             String comment) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -50,19 +51,12 @@ public class BuyScooterTest extends BaseTest {
 
     @Test
     public void testOrderScooterByBottomOrderButton() {
-        SecondOrderFormPage confirmationList = new HomePage(getDriver())
+        new HomePage(getDriver())
                 .clickAcceptCookieButton()
-                .clickBottomOrderButton()
-                .setFirstNameField(firstName)
-                .setLastNameField(lastName)
-                .setOrderAddressField(address)
-                .setMetroStationDropDown(metroStation)
-                .setPhoneNumberField(phoneNumber)
-                .clickNextButton()
-                .setDateDeliveryField(deliveryDate)
-                .setRentalPeriodField(rentalPeriod)
-                .setScooterColorCheckbox(scooterColor)
-                .setCommentField(comment)
+                .clickBottomOrderButton();
+
+        SecondOrderFormPage confirmationList = TestUtils.fillScooterOrderForm(this, firstName, lastName, address,
+                        metroStation, phoneNumber, deliveryDate, rentalPeriod, scooterColor, comment)
                 .clickBottomOrderButton()
                 .acceptOrderInDialogBox();
 
@@ -71,19 +65,12 @@ public class BuyScooterTest extends BaseTest {
 
     @Test
     public void testOrderScooterByTopOrderButton() {
-        SecondOrderFormPage confirmationList = new HomePage(getDriver())
+        new HomePage(getDriver())
                 .clickAcceptCookieButton()
-                .clickTopOrderButton()
-                .setFirstNameField(firstName)
-                .setLastNameField(lastName)
-                .setOrderAddressField(address)
-                .setMetroStationDropDown(metroStation)
-                .setPhoneNumberField(phoneNumber)
-                .clickNextButton()
-                .setDateDeliveryField(deliveryDate)
-                .setRentalPeriodField(rentalPeriod)
-                .setScooterColorCheckbox(scooterColor)
-                .setCommentField(comment)
+                .clickTopOrderButton();
+
+        SecondOrderFormPage confirmationList = TestUtils.fillScooterOrderForm(this, firstName, lastName, address,
+                        metroStation, phoneNumber, deliveryDate, rentalPeriod, scooterColor, comment)
                 .clickBottomOrderButton()
                 .acceptOrderInDialogBox();
 
