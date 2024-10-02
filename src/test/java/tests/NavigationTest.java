@@ -1,37 +1,22 @@
 package tests;
 
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import pages.BaseProjectPage;
 import pages.FirstOrderFormPage;
 import pages.HomePage;
 import pages.OrderStatusPage;
 import runner.BaseTest;
 import testData.PageName;
+import testData.dataProvider.URLDataParameters;
 
-@RunWith(Parameterized.class)
+@RunWith(JUnitParamsRunner.class)
 public class NavigationTest extends BaseTest {
 
-    private final String urlAddress;
-    private final PageName pageName;
-
-    public NavigationTest(String urlAddress, PageName pageName) {
-        this.urlAddress = urlAddress;
-        this.pageName = pageName;
-    }
-
-    @Parameterized.Parameters
-    public static Object[][] getURLData() {
-        return new Object[][]{
-                {"https://qa-scooter.praktikum-services.ru/", PageName.HOME_PAGE},
-                {"https://qa-scooter.praktikum-services.ru/order", PageName.FIRST_ORDER_FORM_PAGE},
-                {"https://qa-scooter.praktikum-services.ru/track?t=", PageName.ORDER_STATUS_PAGE}
-        };
-    }
-
-    public BaseProjectPage getCurrentPageInstance() {
+    public BaseProjectPage getCurrentPageInstance(PageName pageName) {
         switch (pageName) {
             case HOME_PAGE:
                 return new HomePage(getDriver());
@@ -46,11 +31,12 @@ public class NavigationTest extends BaseTest {
     }
 
     @Test
-    public void testGoToHomePageByClickingOnScooterLogo() {
+    @Parameters(source = URLDataParameters.class)
+    public void testGoToHomePageByClickingOnScooterLogo(String urlAddress, PageName pageName) {
         String expectedURL = "https://qa-scooter.praktikum-services.ru/";
         getDriver().navigate().to(urlAddress);
 
-        String actualUrl = getCurrentPageInstance()
+        String actualUrl = getCurrentPageInstance(pageName)
                 .clickScooterLogoButton()
                 .getCurrentURL();
 
@@ -58,11 +44,12 @@ public class NavigationTest extends BaseTest {
     }
 
     @Test
-    public void testGoToDzenByClickingYandexLogo() {
+    @Parameters(source = URLDataParameters.class)
+    public void testGoToDzenByClickingYandexLogo(String urlAddress, PageName pageName) {
         String expectedURL = "https://dzen.ru/?yredirect=true";
         getDriver().navigate().to(urlAddress);
 
-        String actualUrl = getCurrentPageInstance()
+        String actualUrl = getCurrentPageInstance(pageName)
                 .clickYandexLogoButtonAndSwitchToYandexDzenPage()
                 .getCurrentURL();
 
