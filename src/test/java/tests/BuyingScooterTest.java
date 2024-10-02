@@ -67,7 +67,7 @@ public class BuyingScooterTest extends BaseTest {
     }
 
     @Test
-    @Parameters(source = InvalidFirstNameParameters.class)
+    @Parameters(source = InvalidLastNameParameters.class)
     public void testGetErrorMessageInLastNameField(String lastName) {
         String expectedErrorMessage = "Введите корректную фамилию";
 
