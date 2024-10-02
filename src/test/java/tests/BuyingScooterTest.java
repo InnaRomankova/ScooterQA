@@ -98,8 +98,7 @@ public class BuyingScooterTest extends BaseTest {
 
     @Test
     @Parameters(source = FirstScooterOrderFormParameters.class)
-    public void testGetErrorMessageMetroStationField(String firstName, String lastName, String address,
-                                                     MetroStation metroStation, String phoneNumber) {
+    public void testGetErrorMessageMetroStationField(String firstName, String lastName, String address, String phoneNumber) {
         String expectedErrorMessage = "Выберите станцию";
 
         String actualErrorMessage = new HomePage(getDriver())
