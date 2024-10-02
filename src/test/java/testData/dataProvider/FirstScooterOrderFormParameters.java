@@ -1,7 +1,5 @@
 package testData.dataProvider;
 
-import testData.MetroStation;
-
 public class FirstScooterOrderFormParameters {
 
     public static Object[][] provideFirstScooterOrderFormParameters() {
