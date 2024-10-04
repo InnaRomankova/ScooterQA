@@ -2,6 +2,10 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public abstract class BaseProjectPage extends BasePage {
 
@@ -13,6 +17,15 @@ public abstract class BaseProjectPage extends BasePage {
 
     //Кнопка логотипа "Яндекс"
     private final By yandexLogoButton = By.cssSelector("[alt='Yandex']");
+
+    //Кнопка "Статус заказа"
+    private final By orderStatus = By.xpath("//button[text()='Статус заказа']");
+
+    //Поле "Введите номер заказа"
+    private final By inputOderNumberField = By.cssSelector("div[class^='Header'] input[type='text']");
+
+    //Кнопка "Go"
+    private final By goButton = By.xpath("//button[text()='Go!']");
 
     public BaseProjectPage(WebDriver driver) {
         super(driver);
@@ -38,5 +51,27 @@ public abstract class BaseProjectPage extends BasePage {
         getDriver().navigate().refresh();
 
         return new YandexDzenPage(getDriver());
+    }
+
+    public <T extends BaseProjectPage> T clickOrderStatusButton(T page) {
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5000));
+        wait.until(ExpectedConditions.elementToBeClickable(orderStatus));
+        getDriver().findElement(orderStatus).click();
+
+        return page;
+    }
+
+    public <T extends BaseProjectPage> T setOderNumberIntoHeaderInputOderNumberField(T page, String orderNumber) {
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5000));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(inputOderNumberField));
+        getDriver().findElement(inputOderNumberField).sendKeys(orderNumber);
+
+        return page;
+    }
+
+    public OrderStatusPage clickGoButton() {
+        getDriver().findElement(goButton).click();
+
+        return new OrderStatusPage(getDriver());
     }
 }

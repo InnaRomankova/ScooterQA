@@ -76,7 +76,12 @@ public class SecondOrderFormPage extends BaseProjectPage {
     }
 
     public String getOrderConfirmationText() {
-
         return getDriver().findElement(orderConfirmationTextInModalDialog).getText();
+    }
+
+    public OrderStatusPage clickLookStatusButton() {
+        getDriver().findElement(By.xpath("//button[text()='Посмотреть статус']")).click();
+
+        return new OrderStatusPage(getDriver());
     }
 }
