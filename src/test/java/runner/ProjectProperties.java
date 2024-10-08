@@ -19,8 +19,6 @@ public class ProjectProperties {
         try {
             FileInputStream fileInputStream = new FileInputStream("src/test/resources/url.properties");
             properties.load(fileInputStream);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
