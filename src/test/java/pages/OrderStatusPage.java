@@ -2,8 +2,13 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.component.ScooterHeaderComponent;
 
-public class OrderStatusPage extends BaseProjectPage {
+import java.time.Duration;
+
+public class OrderStatusPage extends BasePage {
 
     //Рисунок с надписью "Такого заказа нет"
     private final By orderNotFoundPicture = By.cssSelector("[alt='Not found']");
@@ -23,6 +28,8 @@ public class OrderStatusPage extends BaseProjectPage {
     }
 
     public OrderStatusPage setInputFieldForLookButton(String orderNumber) {
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5000));
+        wait.until(ExpectedConditions.elementToBeClickable(inputFieldForLookButton));
         getDriver().findElement(inputFieldForLookButton).clear();
         getDriver().findElement(inputFieldForLookButton).sendKeys(orderNumber);
 
@@ -33,5 +40,9 @@ public class OrderStatusPage extends BaseProjectPage {
         getDriver().findElement(lookButton).click();
 
         return this;
+    }
+
+    public ScooterHeaderComponent getHeaderComponent() {
+        return new ScooterHeaderComponent(getDriver());
     }
 }

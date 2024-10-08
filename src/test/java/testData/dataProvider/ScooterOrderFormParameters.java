@@ -1,8 +1,8 @@
 package testData.dataProvider;
 
-import testData.MetroStation;
-import testData.RentalPeriod;
-import testData.ScooterColor;
+import testData.enums.MetroStation;
+import testData.enums.RentalPeriod;
+import testData.enums.ScooterColor;
 
 public class ScooterOrderFormParameters {
 

@@ -5,13 +5,14 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.component.ScooterHeaderComponent;
 
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class HomePage extends BaseProjectPage {
+public class HomePage extends BasePage {
 
     //Кнопка, чтобы принять cookie "Да все привыкли"
     private final By acceptCookieButton = By.cssSelector("div[class^='App_CookieConsent'] button");
@@ -55,5 +56,9 @@ public class HomePage extends BaseProjectPage {
             answers.put(question, answer);
         }
         return answers;
+    }
+
+    public ScooterHeaderComponent getHeaderComponent() {
+        return new ScooterHeaderComponent(getDriver());
     }
 }

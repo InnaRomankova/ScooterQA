@@ -2,10 +2,11 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import testData.RentalPeriod;
-import testData.ScooterColor;
+import pages.component.ScooterHeaderComponent;
+import testData.enums.RentalPeriod;
+import testData.enums.ScooterColor;
 
-public class SecondOrderFormPage extends BaseProjectPage {
+public class SecondOrderFormPage extends BasePage {
 
     //Поле "Когда привезти самокат"
     private final By dateDeliveryField = By.cssSelector("[placeholder$='Когда привезти самокат']");
@@ -83,5 +84,18 @@ public class SecondOrderFormPage extends BaseProjectPage {
         getDriver().findElement(By.xpath("//button[text()='Посмотреть статус']")).click();
 
         return new OrderStatusPage(getDriver());
+    }
+
+    public SecondOrderFormPage fillSecondScooterOrderForm(String deliveryDate, RentalPeriod rentalPeriod, ScooterColor scooterColor,
+                                                          String comment) {
+        return new SecondOrderFormPage(getDriver())
+                .setDateDeliveryField(deliveryDate)
+                .setRentalPeriodField(rentalPeriod)
+                .setScooterColorCheckbox(scooterColor)
+                .setCommentField(comment);
+    }
+
+    public ScooterHeaderComponent getHeaderComponent() {
+        return new ScooterHeaderComponent(getDriver());
     }
 }

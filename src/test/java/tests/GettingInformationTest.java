@@ -6,19 +6,27 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.NoSuchElementException;
+import pages.FirstOrderFormPage;
 import pages.HomePage;
 import pages.OrderStatusPage;
 import runner.BaseTest;
-import testData.*;
-import testData.dataProvider.URLDataParameters;
-import utils.TestUtils;
+import testData.HomePageData;
+import testData.dataProvider.FirstScooterOrderFormParameters;
+import testData.enums.MetroStation;
+import testData.enums.RentalPeriod;
+import testData.enums.ScooterColor;
 
 import java.util.Map;
+
+import static runner.ProjectProperties.getPropertyValue;
 
 @RunWith(JUnitParamsRunner.class)
 public class GettingInformationTest extends BaseTest {
 
-    final String wrongOrderNumber = "wrongOrderNumber_123";
+    private final String wrongOrderNumber = "wrongOrderNumber_123";
+    private final String scooterBaseUrl = getPropertyValue("scooter.base.url");
+    private final String scooterFirstOrderFormUrl = scooterBaseUrl + getPropertyValue("scooter.orderFormPage.endpoint");
+    private final String scooterOrderStatusPageUrl = scooterBaseUrl + getPropertyValue("scooter.orderStatusPage.endpoint");
 
     @Test
     public void testGetAnswersToImportantQuestions() {
@@ -32,13 +40,11 @@ public class GettingInformationTest extends BaseTest {
     }
 
     @Test
-    @Parameters(source = URLDataParameters.class)
-    public void testGetErrorMessageWhenClickOrderStatusButtonAndSetWrongOrderNumber(String urlAddress, PageName pageName) {
-        getDriver().navigate().to(urlAddress);
-
-        Boolean orderNotFoundPictureIsVisible = getCurrentPageInstance(pageName)
-                .clickOrderStatusButton(getCurrentPageInstance(pageName))
-                .setOderNumberIntoHeaderInputOderNumberField(getCurrentPageInstance(pageName), wrongOrderNumber)
+    public void testGetErrorMessageWhenClickOrderStatusButtonAndSetWrongOrderNumberOnHomePage() {
+        Boolean orderNotFoundPictureIsVisible = new HomePage(getDriver())
+                .getHeaderComponent()
+                .clickOrderStatusButton()
+                .setOderNumberIntoHeaderInputOderNumberField(wrongOrderNumber)
                 .clickGoButton()
                 .verifyOrderNotFoundPictureIsVisible();
 
@@ -46,12 +52,57 @@ public class GettingInformationTest extends BaseTest {
     }
 
     @Test
-    public void testGetErrorMessageWhenClickLookButtonAndSetWrongOrderNumber() {
-        final String firstName = "Иван";
-        final String lastName = "Иванов";
-        final String address = "г.Москва, ул.Строителей, д.18, кв.6";
-        final MetroStation metroStation = MetroStation.KRASNOSELSKAYA;
-        final String phoneNumber = "84999011234";
+    public void testGetErrorMessageWhenClickOrderStatusButtonAndSetWrongOrderNumberOnFirstOrderFormPage() {
+        getDriver().navigate().to(scooterFirstOrderFormUrl);
+
+        Boolean orderNotFoundPictureIsVisible = new FirstOrderFormPage(getDriver())
+                .getHeaderComponent()
+                .clickOrderStatusButton()
+                .setOderNumberIntoHeaderInputOderNumberField(wrongOrderNumber)
+                .clickGoButton()
+                .verifyOrderNotFoundPictureIsVisible();
+
+        Assert.assertEquals(true, orderNotFoundPictureIsVisible);
+    }
+
+    @Test
+    @Parameters(source = FirstScooterOrderFormParameters.class)
+    public void testGetErrorMessageWhenClickOrderStatusButtonAndSetWrongOrderNumberOnSecondOrderFormPage(String firstName,
+                                                                                                         String lastName,
+                                                                                                         String orderAddress,
+                                                                                                         MetroStation metroStation,
+                                                                                                         String phoneNumber) {
+        Boolean orderNotFoundPictureIsVisible = new HomePage(getDriver())
+                .clickAcceptCookieButton()
+                .clickBottomOrderButton()
+                .fillFirstScooterOrderFormAndClickNextButton(firstName, lastName, orderAddress, metroStation, phoneNumber)
+                .getHeaderComponent()
+                .clickOrderStatusButton()
+                .setOderNumberIntoHeaderInputOderNumberField(wrongOrderNumber)
+                .clickGoButton()
+                .verifyOrderNotFoundPictureIsVisible();
+
+        Assert.assertEquals(true, orderNotFoundPictureIsVisible);
+    }
+
+    @Test
+    public void testGetErrorMessageWhenClickOrderStatusButtonAndSetWrongOrderNumberOnOrderStatusPage() {
+        getDriver().navigate().to(scooterOrderStatusPageUrl);
+
+        Boolean orderNotFoundPictureIsVisible = new OrderStatusPage(getDriver())
+                .getHeaderComponent()
+                .clickOrderStatusButton()
+                .setOderNumberIntoHeaderInputOderNumberField(wrongOrderNumber)
+                .clickGoButton()
+                .verifyOrderNotFoundPictureIsVisible();
+
+        Assert.assertEquals(true, orderNotFoundPictureIsVisible);
+    }
+
+    @Test
+    @Parameters(source = FirstScooterOrderFormParameters.class)
+    public void testGetErrorMessageWhenClickLookButtonAndSetWrongOrderNumber(String firstName, String lastName, String orderAddress,
+                                                                             MetroStation metroStation, String phoneNumber) {
         final String deliveryDate = "5";
         final RentalPeriod rentalPeriod = RentalPeriod.ONE_DAY;
         final ScooterColor scooterColor = ScooterColor.BLACK_PEARL;
@@ -59,10 +110,9 @@ public class GettingInformationTest extends BaseTest {
 
         new HomePage(getDriver())
                 .clickAcceptCookieButton()
-                .clickBottomOrderButton();
-
-        TestUtils.fillScooterOrderForm(this, firstName, lastName, address,
-                        metroStation, phoneNumber, deliveryDate, rentalPeriod, scooterColor, comment)
+                .clickBottomOrderButton()
+                .fillFirstScooterOrderFormAndClickNextButton(firstName, lastName, orderAddress, metroStation, phoneNumber)
+                .fillSecondScooterOrderForm(deliveryDate, rentalPeriod, scooterColor, comment)
                 .clickBottomOrderButton()
                 .acceptOrderInDialogBox()
                 .clickLookStatusButton();
