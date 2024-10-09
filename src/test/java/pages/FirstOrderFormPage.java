@@ -4,9 +4,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
-import testData.MetroStation;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.component.ScooterHeaderComponent;
+import testData.enums.MetroStation;
 
-public class FirstOrderFormPage extends BaseProjectPage {
+import java.time.Duration;
+
+public class FirstOrderFormPage extends BasePage {
 
     //Поле "Имя"
     private final By firstNameField = By.cssSelector("[placeholder$='Имя']");
@@ -45,8 +50,8 @@ public class FirstOrderFormPage extends BaseProjectPage {
         super(driver);
     }
 
-    public FirstOrderFormPage setFirstNameField(String name) {
-        getDriver().findElement(firstNameField).sendKeys(name);
+    public FirstOrderFormPage setFirstNameField(String firstName) {
+        getDriver().findElement(firstNameField).sendKeys(firstName);
 
         return this;
     }
@@ -63,12 +68,12 @@ public class FirstOrderFormPage extends BaseProjectPage {
         return this;
     }
 
-    public FirstOrderFormPage setMetroStationDropDown(MetroStation station) {
+    public FirstOrderFormPage setMetroStationDropDown(MetroStation metroStation) {
         getDriver().findElement(metroStationDropDown).click();
 
         Actions actions = new Actions(getDriver());
         actions
-                .sendKeys(station.getStationName())
+                .sendKeys(metroStation.getStationName())
                 .sendKeys(Keys.ARROW_DOWN, Keys.ENTER)
                 .perform();
 
@@ -76,6 +81,8 @@ public class FirstOrderFormPage extends BaseProjectPage {
     }
 
     public FirstOrderFormPage setPhoneNumberField(String phoneNumber) {
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5000));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(phoneNumberField));
         getDriver().findElement(phoneNumberField).sendKeys(phoneNumber);
 
         return this;
@@ -117,5 +124,20 @@ public class FirstOrderFormPage extends BaseProjectPage {
 
     public String getPhoneNumberFieldErrorMessage() {
         return getDriver().findElement(phoneNumberFieldErrorMessage).getText();
+    }
+
+    public SecondOrderFormPage fillFirstScooterOrderFormAndClickNextButton(String firstName, String lastName, String address,
+                                                                           MetroStation metroStation, String phoneNumber) {
+        return new FirstOrderFormPage(getDriver())
+                .setFirstNameField(firstName)
+                .setLastNameField(lastName)
+                .setOrderAddressField(address)
+                .setMetroStationDropDown(metroStation)
+                .setPhoneNumberField(phoneNumber)
+                .clickNextButton();
+    }
+
+    public ScooterHeaderComponent getHeaderComponent() {
+        return new ScooterHeaderComponent(getDriver());
     }
 }

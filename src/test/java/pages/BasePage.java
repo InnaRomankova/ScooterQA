@@ -2,7 +2,7 @@ package pages;
 
 import org.openqa.selenium.WebDriver;
 
-public class BasePage {
+public abstract class BasePage {
 
     private final WebDriver driver;
 
