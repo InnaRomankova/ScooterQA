@@ -3,13 +3,9 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.component.ScooterHeaderComponent;
 import testData.enums.MetroStation;
-
-import java.time.Duration;
 
 public class FirstOrderFormPage extends BasePage {
 
@@ -71,8 +67,7 @@ public class FirstOrderFormPage extends BasePage {
     public FirstOrderFormPage setMetroStationDropDown(MetroStation metroStation) {
         getDriver().findElement(metroStationDropDown).click();
 
-        Actions actions = new Actions(getDriver());
-        actions
+        getAction()
                 .sendKeys(metroStation.getStationName())
                 .sendKeys(Keys.ARROW_DOWN, Keys.ENTER)
                 .perform();
@@ -81,8 +76,7 @@ public class FirstOrderFormPage extends BasePage {
     }
 
     public FirstOrderFormPage setPhoneNumberField(String phoneNumber) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5000));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(phoneNumberField));
+        getWait(5).until(ExpectedConditions.visibilityOfElementLocated(phoneNumberField));
         getDriver().findElement(phoneNumberField).sendKeys(phoneNumber);
 
         return this;
@@ -96,8 +90,7 @@ public class FirstOrderFormPage extends BasePage {
 
     public FirstOrderFormPage pressTabOnKeyboard() {
 
-        Actions actions = new Actions(getDriver());
-        actions
+       getAction()
                 .sendKeys(Keys.TAB)
                 .perform();
 
