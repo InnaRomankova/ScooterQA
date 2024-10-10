@@ -6,9 +6,7 @@ import org.hamcrest.MatcherAssert;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import pages.FirstOrderFormPage;
-import pages.HomePage;
-import pages.OrderStatusPage;
+import pages.*;
 import runner.BaseTest;
 import testData.dataProvider.FirstScooterOrderFormParameters;
 import testData.enums.MetroStation;
@@ -27,22 +25,24 @@ public class NavigationTest extends BaseTest {
 
     @Test
     public void testStayAtHomePageByClickingOnScooterLogoOnHomePage() {
-        String actualUrl = new HomePage(getDriver())
-                .getHeaderComponent()
-                .clickScooterLogoButton()
-                .getCurrentURL();
+        String actualUrl;
+        MainPage mainPage = new MainPage(getDriver());
+
+        mainPage.getHeaderComponent().clickScooterLogoButton();
+        actualUrl = mainPage.getCurrentURL();
 
         Assert.assertEquals(scooterBaseUrl, actualUrl);
     }
 
     @Test
     public void testGoToHomePageByClickingOnScooterLogoOnFirstOrderFormPage() {
-        getDriver().navigate().to(scooterFirstOrderFormUrl);
+        String actualUrl;
+        FirstOrderFormPage firstOrderFormPage = new FirstOrderFormPage(getDriver());
+        MainPage mainPage = new MainPage(getDriver());
 
-        String actualUrl = new FirstOrderFormPage(getDriver())
-                .getHeaderComponent()
-                .clickScooterLogoButton()
-                .getCurrentURL();
+        getDriver().navigate().to(scooterFirstOrderFormUrl);
+        firstOrderFormPage.getHeaderComponent().clickScooterLogoButton();
+        actualUrl = mainPage.getCurrentURL();
 
         Assert.assertEquals(scooterBaseUrl, actualUrl);
     }
@@ -51,47 +51,54 @@ public class NavigationTest extends BaseTest {
     @Parameters(source = FirstScooterOrderFormParameters.class)
     public void testGoToHomePageByClickingOnScooterLogoOnSecondOrderFormPage(String firstName, String lastName, String orderAddress,
                                                                              MetroStation metroStation, String phoneNumber) {
-        String actualUrl = new HomePage(getDriver())
-                .clickAcceptCookieButton()
-                .clickBottomOrderButton()
-                .fillFirstScooterOrderFormAndClickNextButton(firstName, lastName, orderAddress, metroStation, phoneNumber)
-                .getHeaderComponent()
-                .clickScooterLogoButton()
-                .getCurrentURL();
+        String actualUrl;
+        MainPage mainPage = new MainPage(getDriver());
+        FirstOrderFormPage firstOrderFormPage = new FirstOrderFormPage(getDriver());
+        SecondOrderFormPage secondOrderFormPage = new SecondOrderFormPage(getDriver());
+
+        mainPage.clickAcceptCookieButton();
+        mainPage.clickBottomOrderButton();
+        firstOrderFormPage.fillFirstScooterOrderFormAndClickNextButton(firstName, lastName, orderAddress, metroStation, phoneNumber);
+        secondOrderFormPage.getHeaderComponent().clickScooterLogoButton();
+        actualUrl = mainPage.getCurrentURL();
 
         Assert.assertEquals(scooterBaseUrl, actualUrl);
     }
 
     @Test
     public void testGoToHomePageByClickingOnScooterLogoOnOrderStatusPage() {
-        getDriver().navigate().to(scooterOrderStatusPageUrl);
+        String actualUrl;
+        OrderStatusPage orderStatusPage = new OrderStatusPage(getDriver());
+        MainPage mainPage = new MainPage(getDriver());
 
-        String actualUrl = new OrderStatusPage(getDriver())
-                .getHeaderComponent()
-                .clickScooterLogoButton()
-                .getCurrentURL();
+        getDriver().navigate().to(scooterOrderStatusPageUrl);
+        orderStatusPage.getHeaderComponent().clickScooterLogoButton();
+        actualUrl = mainPage.getCurrentURL();
 
         Assert.assertEquals(scooterBaseUrl, actualUrl);
     }
 
     @Test
     public void testGoToYandexOrDzenPageByClickingYandexLogoOnHomePage() {
-        String actualUrl = new HomePage(getDriver())
-                .getHeaderComponent()
-                .clickYandexLogoButtonAndSwitchToYandexDzenPage()
-                .getCurrentURL();
+        String actualUrl;
+        MainPage mainPage = new MainPage(getDriver());
+        YandexDzenPage yandexDzenPage = new YandexDzenPage(getDriver());
+
+        mainPage.getHeaderComponent().clickYandexLogoButtonAndSwitchToYandexDzenPage();
+        actualUrl = yandexDzenPage.getCurrentURL();
 
         MatcherAssert.assertThat(actualUrl, anyOf(containsString(dzenBaseUrl), startsWith(yandexBaseUrl)));
     }
 
     @Test
     public void testGoToYandexOrDzenPageByClickingYandexLogoOnFirstOrderFormPage() {
-        getDriver().navigate().to(scooterFirstOrderFormUrl);
+        String actualUrl;
+        FirstOrderFormPage firstOrderFormPage = new FirstOrderFormPage(getDriver());
+        YandexDzenPage yandexDzenPage = new YandexDzenPage(getDriver());
 
-        String actualUrl = new FirstOrderFormPage(getDriver())
-                .getHeaderComponent()
-                .clickYandexLogoButtonAndSwitchToYandexDzenPage()
-                .getCurrentURL();
+        getDriver().navigate().to(scooterFirstOrderFormUrl);
+        firstOrderFormPage.getHeaderComponent().clickYandexLogoButtonAndSwitchToYandexDzenPage();
+        actualUrl = yandexDzenPage.getCurrentURL();
 
         MatcherAssert.assertThat(actualUrl, anyOf(containsString(dzenBaseUrl), startsWith(yandexBaseUrl)));
     }
@@ -100,25 +107,30 @@ public class NavigationTest extends BaseTest {
     @Parameters(source = FirstScooterOrderFormParameters.class)
     public void testGoToYandexOrDzenPageByClickingYandexLogoOnSecondOrderFormPage(String firstName, String lastName, String orderAddress,
                                                                                   MetroStation metroStation, String phoneNumber) {
-        String actualUrl = new HomePage(getDriver())
-                .clickAcceptCookieButton()
-                .clickBottomOrderButton()
-                .fillFirstScooterOrderFormAndClickNextButton(firstName, lastName, orderAddress, metroStation, phoneNumber)
-                .getHeaderComponent()
-                .clickYandexLogoButtonAndSwitchToYandexDzenPage()
-                .getCurrentURL();
+        String actualUrl;
+        MainPage mainPage = new MainPage(getDriver());
+        FirstOrderFormPage firstOrderFormPage = new FirstOrderFormPage(getDriver());
+        SecondOrderFormPage secondOrderFormPage = new SecondOrderFormPage(getDriver());
+        YandexDzenPage yandexDzenPage = new YandexDzenPage(getDriver());
+
+        mainPage.clickAcceptCookieButton();
+        mainPage.clickBottomOrderButton();
+        firstOrderFormPage.fillFirstScooterOrderFormAndClickNextButton(firstName, lastName, orderAddress, metroStation, phoneNumber);
+        secondOrderFormPage.getHeaderComponent().clickYandexLogoButtonAndSwitchToYandexDzenPage();
+        actualUrl = yandexDzenPage.getCurrentURL();
 
         MatcherAssert.assertThat(actualUrl, anyOf(containsString(dzenBaseUrl), startsWith(yandexBaseUrl)));
     }
 
     @Test
     public void testGoToYandexOrDzenPageByClickingYandexLogoOnOrderStatusPage() {
-        getDriver().navigate().to(scooterOrderStatusPageUrl);
+        String actualUrl;
+        OrderStatusPage orderStatusPage = new OrderStatusPage(getDriver());
+        YandexDzenPage yandexDzenPage = new YandexDzenPage(getDriver());
 
-        String actualUrl = new OrderStatusPage(getDriver())
-                .getHeaderComponent()
-                .clickYandexLogoButtonAndSwitchToYandexDzenPage()
-                .getCurrentURL();
+        getDriver().navigate().to(scooterOrderStatusPageUrl);
+        orderStatusPage.getHeaderComponent().clickYandexLogoButtonAndSwitchToYandexDzenPage();
+        actualUrl = yandexDzenPage.getCurrentURL();
 
         MatcherAssert.assertThat(actualUrl, anyOf(containsString(dzenBaseUrl), startsWith(yandexBaseUrl)));
     }

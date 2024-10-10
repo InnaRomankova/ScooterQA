@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class HomePage extends BasePage {
+public class MainPage extends BasePage {
 
     //Кнопка, чтобы принять cookie "Да все привыкли"
     private final By acceptCookieButton = By.cssSelector("div[class^='App_CookieConsent'] button");
@@ -21,20 +21,16 @@ public class HomePage extends BasePage {
     //Блок "Вопросы о важном"
     private final By questionsAboutImportantBlock = By.xpath("//div[contains(text(),'Вопросы о важном')]");
 
-    public HomePage(WebDriver driver) {
+    public MainPage(WebDriver driver) {
         super(driver);
     }
 
-    public HomePage clickAcceptCookieButton() {
+    public void clickAcceptCookieButton() {
         getDriver().findElement(acceptCookieButton).click();
-
-        return this;
     }
 
-    public FirstOrderFormPage clickBottomOrderButton() {
+    public void clickBottomOrderButton() {
         getDriver().findElement(bottomOrderButton).click();
-
-        return new FirstOrderFormPage(getDriver());
     }
 
     public Map<String, String> getQuestionsAndAnswers(Set<String> questions) {
@@ -44,7 +40,6 @@ public class HomePage extends BasePage {
                 getDriver().findElement(questionsAboutImportantBlock));
 
         for (String question : questions) {
-
             getWait(10).until(ExpectedConditions.elementToBeClickable(By.xpath(String.format("//div[contains(text(),'%s')]", question)))).click();
             String answer = getWait(3).until(ExpectedConditions.visibilityOfElementLocated(
                     By.xpath(String.format("//div[contains(text(),'%s')]/../following-sibling::div/p", question)))).getText();

@@ -7,8 +7,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.NoSuchElementException;
 import pages.FirstOrderFormPage;
-import pages.HomePage;
+import pages.MainPage;
 import pages.OrderStatusPage;
+import pages.SecondOrderFormPage;
 import runner.BaseTest;
 import testData.HomePageData;
 import testData.dataProvider.FirstScooterOrderFormParameters;
@@ -31,38 +32,42 @@ public class GettingInformationTest extends BaseTest {
     @Test
     public void testGetAnswersToImportantQuestions() {
         Map<String, String> expectedAnswers = HomePageData.EXPECTED_ANSWERS;
+        Map<String, String> actualAnswers;
+        MainPage mainPage = new MainPage(getDriver());
 
-        Map<String, String> actualAnswers = new HomePage(getDriver())
-                .clickAcceptCookieButton()
-                .getQuestionsAndAnswers(expectedAnswers.keySet());
+        mainPage.clickAcceptCookieButton();
+        actualAnswers = mainPage.getQuestionsAndAnswers(expectedAnswers.keySet());
 
         Assert.assertEquals(expectedAnswers, actualAnswers);
     }
 
     @Test
     public void testGetErrorMessageWhenClickOrderStatusButtonAndSetWrongOrderNumberOnHomePage() {
-        Boolean orderNotFoundPictureIsVisible = new HomePage(getDriver())
-                .getHeaderComponent()
-                .clickOrderStatusButton()
-                .setOderNumberIntoHeaderInputOderNumberField(wrongOrderNumber)
-                .clickGoButton()
-                .verifyOrderNotFoundPictureIsVisible();
+        boolean orderNotFoundPictureIsVisible;
+        MainPage mainPage = new MainPage(getDriver());
+        OrderStatusPage orderStatusPage = new OrderStatusPage(getDriver());
 
-        Assert.assertEquals(true, orderNotFoundPictureIsVisible);
+        mainPage.getHeaderComponent().clickOrderStatusButton();
+        mainPage.getHeaderComponent().setOderNumberIntoHeaderInputOderNumberField(wrongOrderNumber);
+        mainPage.getHeaderComponent().clickGoButton();
+        orderNotFoundPictureIsVisible = orderStatusPage.verifyOrderNotFoundPictureIsVisible();
+
+        Assert.assertTrue(orderNotFoundPictureIsVisible);
     }
 
     @Test
     public void testGetErrorMessageWhenClickOrderStatusButtonAndSetWrongOrderNumberOnFirstOrderFormPage() {
+        boolean orderNotFoundPictureIsVisible;
+        FirstOrderFormPage firstOrderFormPage = new FirstOrderFormPage(getDriver());
+        OrderStatusPage orderStatusPage = new OrderStatusPage(getDriver());
+
         getDriver().navigate().to(scooterFirstOrderFormUrl);
+        firstOrderFormPage.getHeaderComponent().clickOrderStatusButton();
+        firstOrderFormPage.getHeaderComponent().setOderNumberIntoHeaderInputOderNumberField(wrongOrderNumber);
+        firstOrderFormPage.getHeaderComponent().clickGoButton();
+        orderNotFoundPictureIsVisible = orderStatusPage.verifyOrderNotFoundPictureIsVisible();
 
-        Boolean orderNotFoundPictureIsVisible = new FirstOrderFormPage(getDriver())
-                .getHeaderComponent()
-                .clickOrderStatusButton()
-                .setOderNumberIntoHeaderInputOderNumberField(wrongOrderNumber)
-                .clickGoButton()
-                .verifyOrderNotFoundPictureIsVisible();
-
-        Assert.assertEquals(true, orderNotFoundPictureIsVisible);
+        Assert.assertTrue(orderNotFoundPictureIsVisible);
     }
 
     @Test
@@ -72,63 +77,69 @@ public class GettingInformationTest extends BaseTest {
                                                                                                          String orderAddress,
                                                                                                          MetroStation metroStation,
                                                                                                          String phoneNumber) {
-        Boolean orderNotFoundPictureIsVisible = new HomePage(getDriver())
-                .clickAcceptCookieButton()
-                .clickBottomOrderButton()
-                .fillFirstScooterOrderFormAndClickNextButton(firstName, lastName, orderAddress, metroStation, phoneNumber)
-                .getHeaderComponent()
-                .clickOrderStatusButton()
-                .setOderNumberIntoHeaderInputOderNumberField(wrongOrderNumber)
-                .clickGoButton()
-                .verifyOrderNotFoundPictureIsVisible();
+        boolean orderNotFoundPictureIsVisible;
+        MainPage mainPage = new MainPage(getDriver());
+        FirstOrderFormPage firstOrderFormPage = new FirstOrderFormPage(getDriver());
+        SecondOrderFormPage secondOrderFormPage = new SecondOrderFormPage(getDriver());
+        OrderStatusPage orderStatusPage = new OrderStatusPage(getDriver());
 
-        Assert.assertEquals(true, orderNotFoundPictureIsVisible);
+        mainPage.clickAcceptCookieButton();
+        mainPage.clickBottomOrderButton();
+        firstOrderFormPage.fillFirstScooterOrderFormAndClickNextButton(firstName, lastName, orderAddress, metroStation, phoneNumber);
+        secondOrderFormPage.getHeaderComponent().clickOrderStatusButton();
+        secondOrderFormPage.getHeaderComponent().setOderNumberIntoHeaderInputOderNumberField(wrongOrderNumber);
+        secondOrderFormPage.getHeaderComponent().clickGoButton();
+        orderNotFoundPictureIsVisible = orderStatusPage.verifyOrderNotFoundPictureIsVisible();
+
+        Assert.assertTrue(orderNotFoundPictureIsVisible);
     }
 
     @Test
     public void testGetErrorMessageWhenClickOrderStatusButtonAndSetWrongOrderNumberOnOrderStatusPage() {
+        boolean orderNotFoundPictureIsVisible;
+        OrderStatusPage orderStatusPage = new OrderStatusPage(getDriver());
+
         getDriver().navigate().to(scooterOrderStatusPageUrl);
+        orderStatusPage.getHeaderComponent().clickOrderStatusButton();
+        orderStatusPage.getHeaderComponent().setOderNumberIntoHeaderInputOderNumberField(wrongOrderNumber);
+        orderStatusPage.getHeaderComponent().clickGoButton();
+        orderNotFoundPictureIsVisible = orderStatusPage.verifyOrderNotFoundPictureIsVisible();
 
-        Boolean orderNotFoundPictureIsVisible = new OrderStatusPage(getDriver())
-                .getHeaderComponent()
-                .clickOrderStatusButton()
-                .setOderNumberIntoHeaderInputOderNumberField(wrongOrderNumber)
-                .clickGoButton()
-                .verifyOrderNotFoundPictureIsVisible();
-
-        Assert.assertEquals(true, orderNotFoundPictureIsVisible);
+        Assert.assertTrue(orderNotFoundPictureIsVisible);
     }
 
     @Test
     @Parameters(source = FirstScooterOrderFormParameters.class)
     public void testGetErrorMessageWhenClickLookButtonAndSetWrongOrderNumber(String firstName, String lastName, String orderAddress,
                                                                              MetroStation metroStation, String phoneNumber) {
+        boolean orderNotFoundPictureIsVisible;
         final String deliveryDate = "5";
         final RentalPeriod rentalPeriod = RentalPeriod.ONE_DAY;
         final ScooterColor scooterColor = ScooterColor.BLACK_PEARL;
         final String comment = "3-й этаж";
+        MainPage mainPage = new MainPage(getDriver());
+        FirstOrderFormPage firstOrderFormPage = new FirstOrderFormPage(getDriver());
+        SecondOrderFormPage secondOrderFormPage = new SecondOrderFormPage(getDriver());
+        OrderStatusPage orderStatusPage = new OrderStatusPage(getDriver());
 
-        new HomePage(getDriver())
-                .clickAcceptCookieButton()
-                .clickBottomOrderButton()
-                .fillFirstScooterOrderFormAndClickNextButton(firstName, lastName, orderAddress, metroStation, phoneNumber)
-                .fillSecondScooterOrderForm(deliveryDate, rentalPeriod, scooterColor, comment)
-                .clickBottomOrderButton()
-                .acceptOrderInDialogBox()
-                .clickLookStatusButton();
+        mainPage.clickAcceptCookieButton();
+        mainPage.clickBottomOrderButton();
+        firstOrderFormPage.fillFirstScooterOrderFormAndClickNextButton(firstName, lastName, orderAddress, metroStation, phoneNumber);
+        secondOrderFormPage.fillSecondScooterOrderForm(deliveryDate, rentalPeriod, scooterColor, comment);
+        secondOrderFormPage.clickBottomOrderButton();
+        secondOrderFormPage.acceptOrderInDialogBox();
+        secondOrderFormPage.clickLookStatusButton();
 
         try {
-            new OrderStatusPage(getDriver())
-                    .verifyOrderNotFoundPictureIsVisible();
+            orderStatusPage.verifyOrderNotFoundPictureIsVisible();
         } catch (NoSuchElementException e) {
             System.out.println("Рисунок с сообщением \"Такого заказа нет\", как и ожидалось, отсутствует на странице");
         }
 
-        Boolean orderNotFoundPictureIsVisible = new OrderStatusPage(getDriver())
-                .setInputFieldForLookButton(wrongOrderNumber)
-                .clickLookButton()
-                .verifyOrderNotFoundPictureIsVisible();
+        orderStatusPage.setInputFieldForLookButton(wrongOrderNumber);
+        orderStatusPage.clickLookButton();
+        orderNotFoundPictureIsVisible = orderStatusPage.verifyOrderNotFoundPictureIsVisible();
 
-        Assert.assertEquals(true, orderNotFoundPictureIsVisible);
+        Assert.assertTrue(orderNotFoundPictureIsVisible);
     }
 }

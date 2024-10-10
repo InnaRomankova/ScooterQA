@@ -36,63 +36,49 @@ public class SecondOrderFormPage extends BasePage {
         super(driver);
     }
 
-    public SecondOrderFormPage setDateDeliveryField(String dateDelivery) {
+    public void setDateDeliveryField(String dateDelivery) {
         getDriver().findElement(dateDeliveryField).click();
         getDriver().findElement(By.xpath(String.format("//div[text()=%s]", dateDelivery))).click();
-
-        return this;
     }
 
-    public SecondOrderFormPage setRentalPeriodField(RentalPeriod rentalPeriod) {
+    public void setRentalPeriodField(RentalPeriod rentalPeriod) {
         getDriver().findElement(rentalPeriodField).click();
         getDriver().findElement(By.xpath(String.format("//div[text()='%s']", rentalPeriod.getRentalPeriod()))).click();
-
-        return this;
     }
 
-    public SecondOrderFormPage setScooterColorCheckbox(ScooterColor color) {
+    public void setScooterColorCheckbox(ScooterColor color) {
         if (color.equals(ScooterColor.BLACK_PEARL)) {
             getDriver().findElement(blackScooterColorCheckbox).click();
         } else getDriver().findElement(greyScooterColorCheckbox).click();
-
-        return this;
     }
 
-    public SecondOrderFormPage setCommentField(String comment) {
+    public void setCommentField(String comment) {
         getDriver().findElement(commentField).sendKeys(comment);
-
-        return this;
     }
 
-    public SecondOrderFormPage clickBottomOrderButton() {
+    public void clickBottomOrderButton() {
         getDriver().findElement(orderBottomButton).click();
-
-        return this;
     }
 
-    public SecondOrderFormPage acceptOrderInDialogBox() {
+    public void acceptOrderInDialogBox() {
         getDriver().findElement(acceptOrderInDialogBoxButton).click();
-
-        return this;
     }
 
     public String getOrderConfirmationText() {
         return getDriver().findElement(orderConfirmationTextInModalDialog).getText();
     }
 
-    public OrderStatusPage clickLookStatusButton() {
+    public void clickLookStatusButton() {
         getDriver().findElement(By.xpath("//button[text()='Посмотреть статус']")).click();
-
-        return new OrderStatusPage(getDriver());
     }
 
-    public SecondOrderFormPage fillSecondScooterOrderForm(String deliveryDate, RentalPeriod rentalPeriod, ScooterColor scooterColor,
-                                                          String comment) {
-        return new SecondOrderFormPage(getDriver())
-                .setDateDeliveryField(deliveryDate)
-                .setRentalPeriodField(rentalPeriod)
-                .setScooterColorCheckbox(scooterColor)
-                .setCommentField(comment);
+    public void fillSecondScooterOrderForm(String deliveryDate, RentalPeriod rentalPeriod, ScooterColor scooterColor,
+                                           String comment) {
+        SecondOrderFormPage secondOrderFormPage = new SecondOrderFormPage(getDriver());
+        secondOrderFormPage.setDateDeliveryField(deliveryDate);
+        secondOrderFormPage.setRentalPeriodField(rentalPeriod);
+        secondOrderFormPage.setScooterColorCheckbox(scooterColor);
+        secondOrderFormPage.setCommentField(comment);
     }
 
     public ScooterHeaderComponent getHeaderComponent() {
