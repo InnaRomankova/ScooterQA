@@ -11,7 +11,7 @@ import pages.MainPage;
 import pages.OrderStatusPage;
 import pages.SecondOrderFormPage;
 import runner.BaseTest;
-import testData.HomePageData;
+import testData.MainPageData;
 import testData.dataProvider.FirstScooterOrderFormParameters;
 import testData.enums.MetroStation;
 import testData.enums.RentalPeriod;
@@ -31,7 +31,7 @@ public class GettingInformationTest extends BaseTest {
 
     @Test
     public void testGetAnswersToImportantQuestions() {
-        Map<String, String> expectedAnswers = HomePageData.EXPECTED_ANSWERS;
+        Map<String, String> expectedAnswers = MainPageData.EXPECTED_ANSWERS;
         Map<String, String> actualAnswers;
         MainPage mainPage = new MainPage(getDriver());
 
@@ -42,7 +42,7 @@ public class GettingInformationTest extends BaseTest {
     }
 
     @Test
-    public void testGetErrorMessageWhenClickOrderStatusButtonAndSetWrongOrderNumberOnHomePage() {
+    public void testGetErrorMessageWhenClickOrderStatusButtonAndSetWrongOrderNumberOnMainPage() {
         boolean orderNotFoundPictureIsVisible;
         MainPage mainPage = new MainPage(getDriver());
         OrderStatusPage orderStatusPage = new OrderStatusPage(getDriver());

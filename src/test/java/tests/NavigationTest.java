@@ -24,7 +24,7 @@ public class NavigationTest extends BaseTest {
     private final String yandexBaseUrl = getPropertyValue("yandex.base.url");
 
     @Test
-    public void testStayAtHomePageByClickingOnScooterLogoOnHomePage() {
+    public void testStayAtMainPageByClickingOnScooterLogoOnMainPage() {
         String actualUrl;
         MainPage mainPage = new MainPage(getDriver());
 
@@ -35,7 +35,7 @@ public class NavigationTest extends BaseTest {
     }
 
     @Test
-    public void testGoToHomePageByClickingOnScooterLogoOnFirstOrderFormPage() {
+    public void testGoToMainPageByClickingOnScooterLogoOnFirstOrderFormPage() {
         String actualUrl;
         FirstOrderFormPage firstOrderFormPage = new FirstOrderFormPage(getDriver());
         MainPage mainPage = new MainPage(getDriver());
@@ -49,7 +49,7 @@ public class NavigationTest extends BaseTest {
 
     @Test
     @Parameters(source = FirstScooterOrderFormParameters.class)
-    public void testGoToHomePageByClickingOnScooterLogoOnSecondOrderFormPage(String firstName, String lastName, String orderAddress,
+    public void testGoToMainPageByClickingOnScooterLogoOnSecondOrderFormPage(String firstName, String lastName, String orderAddress,
                                                                              MetroStation metroStation, String phoneNumber) {
         String actualUrl;
         MainPage mainPage = new MainPage(getDriver());
@@ -66,7 +66,7 @@ public class NavigationTest extends BaseTest {
     }
 
     @Test
-    public void testGoToHomePageByClickingOnScooterLogoOnOrderStatusPage() {
+    public void testGoToMainPageByClickingOnScooterLogoOnOrderStatusPage() {
         String actualUrl;
         OrderStatusPage orderStatusPage = new OrderStatusPage(getDriver());
         MainPage mainPage = new MainPage(getDriver());
@@ -79,7 +79,7 @@ public class NavigationTest extends BaseTest {
     }
 
     @Test
-    public void testGoToYandexOrDzenPageByClickingYandexLogoOnHomePage() {
+    public void testGoToYandexOrDzenPageByClickingYandexLogoOnMainPage() {
         String actualUrl;
         MainPage mainPage = new MainPage(getDriver());
         YandexDzenPage yandexDzenPage = new YandexDzenPage(getDriver());

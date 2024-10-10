@@ -106,14 +106,12 @@ public class FirstOrderFormPage extends BasePage {
 
     public void fillFirstScooterOrderFormAndClickNextButton(String firstName, String lastName, String address,
                                                             MetroStation metroStation, String phoneNumber) {
-        FirstOrderFormPage firstOrderFormPage = new FirstOrderFormPage(getDriver());
-
-        firstOrderFormPage.setFirstNameField(firstName);
-        firstOrderFormPage.setLastNameField(lastName);
-        firstOrderFormPage.setOrderAddressField(address);
-        firstOrderFormPage.setMetroStationDropDown(metroStation);
-        firstOrderFormPage.setPhoneNumberField(phoneNumber);
-        firstOrderFormPage.clickNextButton();
+        setFirstNameField(firstName);
+        setLastNameField(lastName);
+        setOrderAddressField(address);
+        setMetroStationDropDown(metroStation);
+        setPhoneNumberField(phoneNumber);
+        clickNextButton();
     }
 
     public ScooterHeaderComponent getHeaderComponent() {
