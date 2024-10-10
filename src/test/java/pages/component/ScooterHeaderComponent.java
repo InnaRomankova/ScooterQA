@@ -3,7 +3,7 @@ package pages.component;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import pages.*;
+import pages.BasePage;
 
 public class ScooterHeaderComponent extends BasePage {
 
@@ -29,46 +29,34 @@ public class ScooterHeaderComponent extends BasePage {
         super(driver);
     }
 
-    public HomePage clickScooterLogoButton() {
+    public void clickScooterLogoButton() {
         getDriver().findElement(scooterLogoButton).click();
-
-        return new HomePage(getDriver());
     }
 
-    public FirstOrderFormPage clickTopOrderButton() {
+    public void clickTopOrderButton() {
         getDriver().findElement(topOrderButton).click();
-
-        return new FirstOrderFormPage(getDriver());
     }
 
-    public YandexDzenPage clickYandexLogoButtonAndSwitchToYandexDzenPage() {
+    public void clickYandexLogoButtonAndSwitchToYandexDzenPage() {
         getDriver().findElement(yandexLogoButton).click();
 
         Object[] windowHandles = getDriver().getWindowHandles().toArray();
         getDriver().switchTo().window((String) windowHandles[1]);
         getDriver().navigate().refresh();
-
-        return new YandexDzenPage(getDriver());
     }
 
-    public ScooterHeaderComponent clickOrderStatusButton() {
+    public void clickOrderStatusButton() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(orderStatus));
         getDriver().findElement(orderStatus).click();
-
-        return this;
     }
 
-    public ScooterHeaderComponent setOderNumberIntoHeaderInputOderNumberField(String orderNumber) {
+    public void setOderNumberIntoHeaderInputOderNumberField(String orderNumber) {
         getWait(5).until(ExpectedConditions.visibilityOfElementLocated(inputOderNumberField));
         getDriver().findElement(inputOderNumberField).sendKeys(orderNumber);
-
-        return this;
     }
 
-    public OrderStatusPage clickGoButton() {
+    public void clickGoButton() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(goButton));
         getDriver().findElement(goButton).click();
-
-        return new OrderStatusPage(getDriver());
     }
 }

@@ -24,18 +24,14 @@ public class OrderStatusPage extends BasePage {
         return getDriver().findElement(orderNotFoundPicture).isDisplayed();
     }
 
-    public OrderStatusPage setInputFieldForLookButton(String orderNumber) {
+    public void setInputFieldForLookButton(String orderNumber) {
         getWait(5).until(ExpectedConditions.elementToBeClickable(inputFieldForLookButton));
         getDriver().findElement(inputFieldForLookButton).clear();
         getDriver().findElement(inputFieldForLookButton).sendKeys(orderNumber);
-
-        return this;
     }
 
-    public OrderStatusPage clickLookButton() {
+    public void clickLookButton() {
         getDriver().findElement(lookButton).click();
-
-        return this;
     }
 
     public ScooterHeaderComponent getHeaderComponent() {

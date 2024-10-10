@@ -46,55 +46,40 @@ public class FirstOrderFormPage extends BasePage {
         super(driver);
     }
 
-    public FirstOrderFormPage setFirstNameField(String firstName) {
+    public void setFirstNameField(String firstName) {
         getDriver().findElement(firstNameField).sendKeys(firstName);
-
-        return this;
     }
 
-    public FirstOrderFormPage setLastNameField(String lastName) {
+    public void setLastNameField(String lastName) {
         getDriver().findElement(lastNameField).sendKeys(lastName);
-
-        return this;
     }
 
-    public FirstOrderFormPage setOrderAddressField(String orderAddress) {
+    public void setOrderAddressField(String orderAddress) {
         getDriver().findElement(orderAddressField).sendKeys(orderAddress);
-
-        return this;
     }
 
-    public FirstOrderFormPage setMetroStationDropDown(MetroStation metroStation) {
+    public void setMetroStationDropDown(MetroStation metroStation) {
         getDriver().findElement(metroStationDropDown).click();
 
         getAction()
                 .sendKeys(metroStation.getStationName())
                 .sendKeys(Keys.ARROW_DOWN, Keys.ENTER)
                 .perform();
-
-        return this;
     }
 
-    public FirstOrderFormPage setPhoneNumberField(String phoneNumber) {
+    public void setPhoneNumberField(String phoneNumber) {
         getWait(5).until(ExpectedConditions.visibilityOfElementLocated(phoneNumberField));
         getDriver().findElement(phoneNumberField).sendKeys(phoneNumber);
-
-        return this;
     }
 
-    public SecondOrderFormPage clickNextButton() {
+    public void clickNextButton() {
         getDriver().findElement(nextButton).click();
-
-        return new SecondOrderFormPage(getDriver());
     }
 
-    public FirstOrderFormPage pressTabOnKeyboard() {
-
-       getAction()
+    public void pressTabOnKeyboard() {
+        getAction()
                 .sendKeys(Keys.TAB)
                 .perform();
-
-        return this;
     }
 
     public String getFirstNameFieldErrorMessage() {
@@ -119,15 +104,16 @@ public class FirstOrderFormPage extends BasePage {
         return getDriver().findElement(phoneNumberFieldErrorMessage).getText();
     }
 
-    public SecondOrderFormPage fillFirstScooterOrderFormAndClickNextButton(String firstName, String lastName, String address,
-                                                                           MetroStation metroStation, String phoneNumber) {
-        return new FirstOrderFormPage(getDriver())
-                .setFirstNameField(firstName)
-                .setLastNameField(lastName)
-                .setOrderAddressField(address)
-                .setMetroStationDropDown(metroStation)
-                .setPhoneNumberField(phoneNumber)
-                .clickNextButton();
+    public void fillFirstScooterOrderFormAndClickNextButton(String firstName, String lastName, String address,
+                                                            MetroStation metroStation, String phoneNumber) {
+        FirstOrderFormPage firstOrderFormPage = new FirstOrderFormPage(getDriver());
+
+        firstOrderFormPage.setFirstNameField(firstName);
+        firstOrderFormPage.setLastNameField(lastName);
+        firstOrderFormPage.setOrderAddressField(address);
+        firstOrderFormPage.setMetroStationDropDown(metroStation);
+        firstOrderFormPage.setPhoneNumberField(phoneNumber);
+        firstOrderFormPage.clickNextButton();
     }
 
     public ScooterHeaderComponent getHeaderComponent() {
