@@ -2,7 +2,7 @@ package testData;
 
 import java.util.Map;
 
-public class HomePageData {
+public class MainPageData {
 
     public static final Map<String, String> EXPECTED_ANSWERS = Map.of(
             "Сколько это стоит? И как оплатить?", "Сутки — 400 рублей. Оплата курьеру — наличными или картой.",

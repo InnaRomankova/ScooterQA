@@ -74,11 +74,10 @@ public class SecondOrderFormPage extends BasePage {
 
     public void fillSecondScooterOrderForm(String deliveryDate, RentalPeriod rentalPeriod, ScooterColor scooterColor,
                                            String comment) {
-        SecondOrderFormPage secondOrderFormPage = new SecondOrderFormPage(getDriver());
-        secondOrderFormPage.setDateDeliveryField(deliveryDate);
-        secondOrderFormPage.setRentalPeriodField(rentalPeriod);
-        secondOrderFormPage.setScooterColorCheckbox(scooterColor);
-        secondOrderFormPage.setCommentField(comment);
+        setDateDeliveryField(deliveryDate);
+        setRentalPeriodField(rentalPeriod);
+        setScooterColorCheckbox(scooterColor);
+        setCommentField(comment);
     }
 
     public ScooterHeaderComponent getHeaderComponent() {
