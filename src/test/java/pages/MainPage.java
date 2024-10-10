@@ -25,10 +25,8 @@ public class MainPage extends BasePage {
         super(driver);
     }
 
-    public MainPage clickAcceptCookieButton() {
+    public void clickAcceptCookieButton() {
         getDriver().findElement(acceptCookieButton).click();
-
-        return this;
     }
 
     public void clickBottomOrderButton() {
