@@ -3,10 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.component.ScooterHeaderComponent;
-
-import java.time.Duration;
 
 public class OrderStatusPage extends BasePage {
 
@@ -28,8 +25,7 @@ public class OrderStatusPage extends BasePage {
     }
 
     public OrderStatusPage setInputFieldForLookButton(String orderNumber) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5000));
-        wait.until(ExpectedConditions.elementToBeClickable(inputFieldForLookButton));
+        getWait(5).until(ExpectedConditions.elementToBeClickable(inputFieldForLookButton));
         getDriver().findElement(inputFieldForLookButton).clear();
         getDriver().findElement(inputFieldForLookButton).sendKeys(orderNumber);
 

@@ -3,10 +3,7 @@ package pages.component;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.*;
-
-import java.time.Duration;
 
 public class ScooterHeaderComponent extends BasePage {
 
@@ -55,24 +52,21 @@ public class ScooterHeaderComponent extends BasePage {
     }
 
     public ScooterHeaderComponent clickOrderStatusButton() {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5000));
-        wait.until(ExpectedConditions.elementToBeClickable(orderStatus));
+        getWait(5).until(ExpectedConditions.elementToBeClickable(orderStatus));
         getDriver().findElement(orderStatus).click();
 
         return this;
     }
 
     public ScooterHeaderComponent setOderNumberIntoHeaderInputOderNumberField(String orderNumber) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5000));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(inputOderNumberField));
+        getWait(5).until(ExpectedConditions.visibilityOfElementLocated(inputOderNumberField));
         getDriver().findElement(inputOderNumberField).sendKeys(orderNumber);
 
         return this;
     }
 
     public OrderStatusPage clickGoButton() {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5000));
-        wait.until(ExpectedConditions.elementToBeClickable(goButton));
+        getWait(5).until(ExpectedConditions.elementToBeClickable(goButton));
         getDriver().findElement(goButton).click();
 
         return new OrderStatusPage(getDriver());

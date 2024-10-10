@@ -4,10 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.component.ScooterHeaderComponent;
 
-import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -45,12 +43,10 @@ public class HomePage extends BasePage {
         ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView();",
                 getDriver().findElement(questionsAboutImportantBlock));
 
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10000));
-
         for (String question : questions) {
 
-            wait.until(ExpectedConditions.elementToBeClickable(By.xpath(String.format("//div[contains(text(),'%s')]", question)))).click();
-            String answer = wait.until(ExpectedConditions.visibilityOfElementLocated(
+            getWait(10).until(ExpectedConditions.elementToBeClickable(By.xpath(String.format("//div[contains(text(),'%s')]", question)))).click();
+            String answer = getWait(3).until(ExpectedConditions.visibilityOfElementLocated(
                     By.xpath(String.format("//div[contains(text(),'%s')]/../following-sibling::div/p", question)))).getText();
 
             answers.put(question, answer);
