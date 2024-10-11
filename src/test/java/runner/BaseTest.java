@@ -4,6 +4,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 
+import static testData.UrlData.SCOOTER_BASE_URL;
+
 public abstract class BaseTest {
 
     private WebDriver driver;
@@ -12,7 +14,7 @@ public abstract class BaseTest {
     public void beforeMethod() {
         driver = DriverManager.createDriver(Config.FIREFOX);
         if (driver != null) {
-            driver.get(ProjectProperties.getPropertyValue("scooter.base.url"));
+            driver.get(SCOOTER_BASE_URL);
         }
     }
 
