@@ -19,15 +19,14 @@ import testData.enums.ScooterColor;
 
 import java.util.Map;
 
-import static runner.ProjectProperties.getPropertyValue;
+import static testData.UrlData.SCOOTER_FIRST_ORDER_FORM_URL;
+import static testData.UrlData.SCOOTER_ORDER_STATUS_PAGE_URL;
+
 
 @RunWith(JUnitParamsRunner.class)
 public class GettingInformationTest extends BaseTest {
 
     private final String wrongOrderNumber = "wrongOrderNumber_123";
-    private final String scooterBaseUrl = getPropertyValue("scooter.base.url");
-    private final String scooterFirstOrderFormUrl = scooterBaseUrl + getPropertyValue("scooter.orderFormPage.endpoint");
-    private final String scooterOrderStatusPageUrl = scooterBaseUrl + getPropertyValue("scooter.orderStatusPage.endpoint");
 
     @Test
     public void testGetAnswersToImportantQuestions() {
@@ -61,7 +60,7 @@ public class GettingInformationTest extends BaseTest {
         FirstOrderFormPage firstOrderFormPage = new FirstOrderFormPage(getDriver());
         OrderStatusPage orderStatusPage = new OrderStatusPage(getDriver());
 
-        getDriver().navigate().to(scooterFirstOrderFormUrl);
+        getDriver().navigate().to(SCOOTER_FIRST_ORDER_FORM_URL);
         firstOrderFormPage.getHeaderComponent().clickOrderStatusButton();
         firstOrderFormPage.getHeaderComponent().setOderNumberIntoHeaderInputOderNumberField(wrongOrderNumber);
         firstOrderFormPage.getHeaderComponent().clickGoButton();
@@ -99,7 +98,7 @@ public class GettingInformationTest extends BaseTest {
         boolean orderNotFoundPictureIsVisible;
         OrderStatusPage orderStatusPage = new OrderStatusPage(getDriver());
 
-        getDriver().navigate().to(scooterOrderStatusPageUrl);
+        getDriver().navigate().to(SCOOTER_ORDER_STATUS_PAGE_URL);
         orderStatusPage.getHeaderComponent().clickOrderStatusButton();
         orderStatusPage.getHeaderComponent().setOderNumberIntoHeaderInputOderNumberField(wrongOrderNumber);
         orderStatusPage.getHeaderComponent().clickGoButton();

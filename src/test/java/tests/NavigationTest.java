@@ -12,16 +12,10 @@ import testData.dataProvider.FirstScooterOrderFormParameters;
 import testData.enums.MetroStation;
 
 import static org.hamcrest.CoreMatchers.*;
-import static runner.ProjectProperties.getPropertyValue;
+import static testData.UrlData.*;
 
 @RunWith(JUnitParamsRunner.class)
 public class NavigationTest extends BaseTest {
-
-    private final String scooterBaseUrl = getPropertyValue("scooter.base.url");
-    private final String scooterFirstOrderFormUrl = scooterBaseUrl + getPropertyValue("scooter.orderFormPage.endpoint");
-    private final String scooterOrderStatusPageUrl = scooterBaseUrl + getPropertyValue("scooter.orderStatusPage.endpoint");
-    private final String dzenBaseUrl = getPropertyValue("dzen.base.url");
-    private final String yandexBaseUrl = getPropertyValue("yandex.base.url");
 
     @Test
     public void testStayAtMainPageByClickingOnScooterLogoOnMainPage() {
@@ -31,7 +25,7 @@ public class NavigationTest extends BaseTest {
         mainPage.getHeaderComponent().clickScooterLogoButton();
         actualUrl = mainPage.getCurrentURL();
 
-        Assert.assertEquals(scooterBaseUrl, actualUrl);
+        Assert.assertEquals(SCOOTER_BASE_URL, actualUrl);
     }
 
     @Test
@@ -40,11 +34,11 @@ public class NavigationTest extends BaseTest {
         FirstOrderFormPage firstOrderFormPage = new FirstOrderFormPage(getDriver());
         MainPage mainPage = new MainPage(getDriver());
 
-        getDriver().navigate().to(scooterFirstOrderFormUrl);
+        getDriver().navigate().to(SCOOTER_FIRST_ORDER_FORM_URL);
         firstOrderFormPage.getHeaderComponent().clickScooterLogoButton();
         actualUrl = mainPage.getCurrentURL();
 
-        Assert.assertEquals(scooterBaseUrl, actualUrl);
+        Assert.assertEquals(SCOOTER_BASE_URL, actualUrl);
     }
 
     @Test
@@ -62,7 +56,7 @@ public class NavigationTest extends BaseTest {
         secondOrderFormPage.getHeaderComponent().clickScooterLogoButton();
         actualUrl = mainPage.getCurrentURL();
 
-        Assert.assertEquals(scooterBaseUrl, actualUrl);
+        Assert.assertEquals(SCOOTER_BASE_URL, actualUrl);
     }
 
     @Test
@@ -71,11 +65,11 @@ public class NavigationTest extends BaseTest {
         OrderStatusPage orderStatusPage = new OrderStatusPage(getDriver());
         MainPage mainPage = new MainPage(getDriver());
 
-        getDriver().navigate().to(scooterOrderStatusPageUrl);
+        getDriver().navigate().to(SCOOTER_ORDER_STATUS_PAGE_URL);
         orderStatusPage.getHeaderComponent().clickScooterLogoButton();
         actualUrl = mainPage.getCurrentURL();
 
-        Assert.assertEquals(scooterBaseUrl, actualUrl);
+        Assert.assertEquals(SCOOTER_BASE_URL, actualUrl);
     }
 
     @Test
@@ -87,7 +81,7 @@ public class NavigationTest extends BaseTest {
         mainPage.getHeaderComponent().clickYandexLogoButtonAndSwitchToYandexDzenPage();
         actualUrl = yandexDzenPage.getCurrentURL();
 
-        MatcherAssert.assertThat(actualUrl, anyOf(containsString(dzenBaseUrl), startsWith(yandexBaseUrl)));
+        MatcherAssert.assertThat(actualUrl, anyOf(containsString(DZEN_BASE_URL), startsWith(YANDEX_BASE_URL)));
     }
 
     @Test
@@ -96,11 +90,11 @@ public class NavigationTest extends BaseTest {
         FirstOrderFormPage firstOrderFormPage = new FirstOrderFormPage(getDriver());
         YandexDzenPage yandexDzenPage = new YandexDzenPage(getDriver());
 
-        getDriver().navigate().to(scooterFirstOrderFormUrl);
+        getDriver().navigate().to(SCOOTER_FIRST_ORDER_FORM_URL);
         firstOrderFormPage.getHeaderComponent().clickYandexLogoButtonAndSwitchToYandexDzenPage();
         actualUrl = yandexDzenPage.getCurrentURL();
 
-        MatcherAssert.assertThat(actualUrl, anyOf(containsString(dzenBaseUrl), startsWith(yandexBaseUrl)));
+        MatcherAssert.assertThat(actualUrl, anyOf(containsString(DZEN_BASE_URL), startsWith(YANDEX_BASE_URL)));
     }
 
     @Test
@@ -119,7 +113,7 @@ public class NavigationTest extends BaseTest {
         secondOrderFormPage.getHeaderComponent().clickYandexLogoButtonAndSwitchToYandexDzenPage();
         actualUrl = yandexDzenPage.getCurrentURL();
 
-        MatcherAssert.assertThat(actualUrl, anyOf(containsString(dzenBaseUrl), startsWith(yandexBaseUrl)));
+        MatcherAssert.assertThat(actualUrl, anyOf(containsString(DZEN_BASE_URL), startsWith(YANDEX_BASE_URL)));
     }
 
     @Test
@@ -128,10 +122,10 @@ public class NavigationTest extends BaseTest {
         OrderStatusPage orderStatusPage = new OrderStatusPage(getDriver());
         YandexDzenPage yandexDzenPage = new YandexDzenPage(getDriver());
 
-        getDriver().navigate().to(scooterOrderStatusPageUrl);
+        getDriver().navigate().to(SCOOTER_ORDER_STATUS_PAGE_URL);
         orderStatusPage.getHeaderComponent().clickYandexLogoButtonAndSwitchToYandexDzenPage();
         actualUrl = yandexDzenPage.getCurrentURL();
 
-        MatcherAssert.assertThat(actualUrl, anyOf(containsString(dzenBaseUrl), startsWith(yandexBaseUrl)));
+        MatcherAssert.assertThat(actualUrl, anyOf(containsString(DZEN_BASE_URL), startsWith(YANDEX_BASE_URL)));
     }
 }
